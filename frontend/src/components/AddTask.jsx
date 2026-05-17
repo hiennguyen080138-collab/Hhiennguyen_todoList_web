@@ -60,7 +60,7 @@ const AddTask = ({ handleNewTaskAdded }) => {
             disabled={!newTaskTitle.trim()} // Vô hiệu hóa nút nếu tiêu đề trống
           >
             <Plus className="size-5"/>
-            Thêm 
+            Thêm
 
          </Button>
 
