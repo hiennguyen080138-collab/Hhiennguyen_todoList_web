@@ -26,10 +26,15 @@ app.use(express.json());
 app.use('/api/tasks', tasksRouter);
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, './frontend/dist')));
+    const distPath = path.resolve(__dirname, 'frontend', 'dist');
+    
+    // Phục vụ đúng các file tĩnh (js, css, hình ảnh trong assets)
+    app.use(express.static(distPath));
+    
+    // Tất cả các request giao diện khác sẽ trả về index.html
     app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './frontend/dist/index.html'));
-});
+        res.sendFile(path.resolve(distPath, 'index.html'));
+    });
 }
 connectDB().then(() => {
     app.listen(PORT, () => {
