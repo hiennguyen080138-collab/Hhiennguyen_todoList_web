@@ -26,9 +26,11 @@ app.use(express.json());
 app.use('/api/tasks', tasksRouter);
 
 if (process.env.NODE_ENV === 'production') {
-    const distPath = path.resolve(__dirname, 'frontend', 'dist');
+    // import.meta.dirname là thư mục backend/src
+    // '../..' giúp đi lùi ra ngoài 2 cấp để ra thư mục gốc, rồi đi vào frontend/dist
+    const distPath = path.resolve(import.meta.dirname, '..', '..', 'frontend', 'dist');
     
-    // Phục vụ đúng các file tĩnh (js, css, hình ảnh trong assets)
+    // Phục vụ đúng các file tĩnh
     app.use(express.static(distPath));
     
     // Tất cả các request giao diện khác sẽ trả về index.html
